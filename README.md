@@ -23,14 +23,14 @@ A hypervisor-like service for managing ML deployments with intelligent schedulin
 
 ```bash
 git clone <repository-url>
-cd mlops-platform
+cd MLOpsService
 ```
 
 2. Create and activate a virtual environment:
 
 ```bash
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate
 ```
 
 3. Install dependencies:
@@ -39,31 +39,10 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-4. Set up environment variables:
-
-```bash
-cp .env.example .env
-# Edit .env with your configuration
-```
-
-5. Start the services using Docker Compose:
+4. Start the services using Docker Compose:
 
 ```bash
 docker-compose up -d
-```
-
-## Running the Application
-
-1. Start the FastAPI application:
-
-```bash
-uvicorn app.main:app --reload
-```
-
-2. Access the API documentation at:
-
-```
-http://localhost:8000/docs
 ```
 
 ## API Endpoints
