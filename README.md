@@ -111,6 +111,77 @@ app/
 └── main.py
 ```
 
+# Database Schema
+
+```mermaid
+erDiagram
+    Organization ||--o{ User : "has"
+    Organization ||--o{ Cluster : "owns"
+    User ||--o{ Cluster : "owns"
+    User ||--o{ Deployment : "creates"
+    Cluster ||--o{ Deployment : "hosts"
+    Deployment ||--o{ MonitoringMetrics : "has"
+
+    Organization {
+        int id PK
+        string name
+        string invite_code
+        datetime created_at
+        boolean is_active
+    }
+
+    User {
+        int id PK
+        string username
+        string email
+        string password_hash
+        int organization_id FK
+        datetime created_at
+        boolean is_active
+    }
+
+    Cluster {
+        int id PK
+        string name
+        int organization_id FK
+        int owner_id FK
+        float total_ram_gb
+        int total_cpu_cores
+        int total_gpu_count
+        float available_ram_gb
+        int available_cpu_cores
+        int available_gpu_count
+        datetime created_at
+        boolean is_active
+    }
+
+    Deployment {
+        int id PK
+        string name
+        int user_id FK
+        int cluster_id FK
+        string docker_image
+        float required_ram_gb
+        int required_cpu_cores
+        int required_gpu_count
+        enum priority
+        enum status
+        datetime created_at
+        datetime scheduled_at
+        datetime started_at
+        datetime completed_at
+        json meta_data
+    }
+
+    MonitoringMetrics {
+        int id PK
+        int deployment_id FK
+        string metric_name
+        float metric_value
+        datetime timestamp
+    }
+```
+
 ### Running Tests
 
 ```bash
