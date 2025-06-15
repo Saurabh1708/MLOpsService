@@ -1,5 +1,5 @@
 from typing import Optional
-from pydantic import BaseModel, UUID4
+from pydantic import BaseModel
 
 class ClusterBase(BaseModel):
     name: str
@@ -11,9 +11,9 @@ class ClusterCreate(ClusterBase):
     pass
 
 class Cluster(ClusterBase):
-    id: UUID4
-    organization_id: UUID4
-    owner_id: UUID4
+    id: int
+    organization_id: int
+    owner_id: int
     available_ram_gb: float
     available_cpu_cores: int
     available_gpu_count: int

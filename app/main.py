@@ -1,6 +1,5 @@
 from contextlib import asynccontextmanager
 import os
-import uuid
 import hashlib
 import secrets
 from datetime import datetime, timedelta
@@ -20,7 +19,6 @@ from fastapi.responses import JSONResponse, RedirectResponse
 from sqlalchemy import create_engine, Column, String, Integer, Float, DateTime, Boolean, ForeignKey, Text, Enum as SQLEnum
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship, Session
-from sqlalchemy.dialects.postgresql import UUID
 from fastapi import FastAPI, HTTPException, Depends, BackgroundTasks, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel, Field

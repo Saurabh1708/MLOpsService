@@ -1,7 +1,12 @@
-CREATE DATABASE ml_ops_db;
-\c ml_ops_db
-CREATE USER root WITH PASSWORD 'root' SUPERUSER;
-GRANT ALL PRIVILEGES ON DATABASE ml_ops_db TO root; 
+GRANT ALL PRIVILEGES ON DATABASE ml_ops_db TO root;
+
+CREATE TABLE IF NOT EXISTS organizations (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    invite_code VARCHAR(50) UNIQUE NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    is_active BOOLEAN DEFAULT TRUE
+);
 
 -- Create users table
 CREATE TABLE IF NOT EXISTS users (
@@ -10,15 +15,6 @@ CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(100) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
     organization_id INTEGER REFERENCES organizations(id),
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    is_active BOOLEAN DEFAULT TRUE
-);
-
--- Create organizations table
-CREATE TABLE IF NOT EXISTS organizations (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    invite_code VARCHAR(50) UNIQUE NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     is_active BOOLEAN DEFAULT TRUE
 );

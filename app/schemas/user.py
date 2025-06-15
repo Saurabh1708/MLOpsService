@@ -1,5 +1,5 @@
 from typing import Optional
-from pydantic import BaseModel, UUID4
+from pydantic import BaseModel
 
 class UserBase(BaseModel):
     username: str
@@ -14,8 +14,8 @@ class UserLogin(BaseModel):
     password: str
 
 class User(UserBase):
-    id: UUID4
-    organization_id: Optional[UUID4]
+    id: int
+    organization_id: Optional[int]
     is_active: bool
 
     class Config:

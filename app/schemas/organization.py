@@ -1,5 +1,5 @@
 from typing import Optional
-from pydantic import BaseModel, UUID4
+from pydantic import BaseModel
 
 class OrganizationBase(BaseModel):
     name: str
@@ -8,7 +8,7 @@ class OrganizationCreate(OrganizationBase):
     pass
 
 class Organization(OrganizationBase):
-    id: UUID4
+    id: int
     invite_code: str
     is_active: bool
 

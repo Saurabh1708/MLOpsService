@@ -1,11 +1,10 @@
 from datetime import datetime
 from typing import Optional, Dict, Any
-from pydantic import BaseModel, UUID4
+from pydantic import BaseModel
 from app.core.enums import DeploymentStatus, DeploymentPriority
 
 class DeploymentBase(BaseModel):
     name: str
-    cluster_id: UUID4
     docker_image: str
     required_ram_gb: float
     required_cpu_cores: int
@@ -14,11 +13,12 @@ class DeploymentBase(BaseModel):
     meta_data: Optional[Dict[str, Any]] = None
 
 class DeploymentCreate(DeploymentBase):
-    pass
+    cluster_id: int
 
 class Deployment(DeploymentBase):
-    id: UUID4
-    user_id: UUID4
+    id: int
+    user_id: int
+    cluster_id: int
     status: DeploymentStatus
     created_at: datetime
     scheduled_at: Optional[datetime]

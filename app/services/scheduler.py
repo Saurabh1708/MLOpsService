@@ -86,8 +86,8 @@ class ResourceScheduler:
         deployment = db.query(Deployment).filter(Deployment.id == deployment_id).first()
         if not deployment or deployment.status != DeploymentStatus.PENDING:
             return False
-            
         cluster = db.query(Cluster).filter(Cluster.id == deployment.cluster_id).first()
+        logger.info("cluser info for scheduled task", cluster)
         if not cluster:
             return False
             
@@ -99,6 +99,7 @@ class ResourceScheduler:
         
         # Try direct scheduling first
         if self.can_schedule(cluster, required_resources):
+            logger.info("can schedule task")
             return self._allocate_resources(deployment, cluster, db)
             
         # Try preemption for high priority deployments
@@ -146,7 +147,7 @@ class ResourceScheduler:
             return
             
         self.running = True
-        self.scheduler_thread = threading.Thread(target=self._scheduler_loop, daemon=True)
+        self.scheduler_thread = threading.Thread(target=self. _scheduler_loop, daemon=True)
         self.scheduler_thread.start()
         logger.info("Resource scheduler started")
         
@@ -163,6 +164,7 @@ class ResourceScheduler:
             try:
                 if not self.task_queue.empty():
                     task = self.task_queue.get(timeout=1)
+                    logger.info(f"task picked from queue {task}")
                     db = SessionLocal()
                     try:
                         success = self.schedule_deployment(task.deployment_id, db)
