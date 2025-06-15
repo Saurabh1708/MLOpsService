@@ -59,6 +59,20 @@ services:
     restart: unless-stopped
     command: uvicorn app.main:app --host 0.0.0.0 --port 8001 --reload
 
+  # Test Runner
+  test_runner:
+    build: .
+    container_name: mlops_test_runner
+    environment:
+      - DATABASE_URL=postgresql://root:root@postgres:5432/ml_ops_test_db
+    depends_on:
+      - postgres
+    networks:
+      - mlops_network
+    volumes:
+      - .:/app
+    command: pytest tests/ -v
+
 volumes:
   postgres_data:
   redis_data:
