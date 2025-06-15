@@ -113,7 +113,7 @@ app/
 
 #
 
-![Database Schema](./docs/database-schema.png)
+![Database Schema](./docs/uml.svg)
 
 ### Running Tests
 
